@@ -125,6 +125,8 @@ footer{background:#fff}
 .nav{display:flex;align-items:center;gap:14px;padding:14px 48px 14px 56px;z-index:20}
 .nav--over{position:absolute;top:0;left:0;right:0}
 .nav--solid{position:relative;background:#1b1410}
+.nav--fixed{position:fixed;transition:background .35s,box-shadow .35s,padding .35s}
+.nav--fixed.is-scrolled{background:#1b1410;box-shadow:0 6px 24px rgba(0,0,0,.25)}
 .nav-logo{width:70px}
 .nav-book{margin-left:auto;border-radius:0}
 .nav--over .nav-book{margin-left:0;position:absolute;left:50%;transform:translateX(-50%);top:16px}

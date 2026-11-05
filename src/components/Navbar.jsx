@@ -13,7 +13,18 @@ export default function Navbar() {
   const [open, setOpen] = useState(false)
   const [eventsOpen, setEventsOpen] = useState(false)
   const { pathname } = useLocation()
-  const overHero = pathname === '/' || pathname === '/menu'
+  const isEvent = pathname.startsWith('/events/')
+  const overHero = pathname === '/' || pathname === '/menu' || isEvent
+  const [scrolled, setScrolled] = useState(false)
+
+  // events pages: transparent at the top, solid once the user scrolls
+  useEffect(() => {
+    if (!isEvent) { setScrolled(false); return }
+    const onScroll = () => setScrolled(window.scrollY > 60)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [isEvent, pathname])
 
   // close the menu whenever the page changes
   useEffect(() => { setOpen(false); setEventsOpen(false) }, [pathname])
@@ -28,7 +39,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className={`nav ${overHero ? 'nav--over' : 'nav--solid'}`}>
+      <nav className={`nav ${overHero ? 'nav--over' : 'nav--solid'} ${isEvent ? 'nav--fixed' : ''} ${scrolled ? 'is-scrolled' : ''}`}>
         <Link to="/"><img className="nav-logo" src="/images/logo.png" alt="Chatti by Regi Mathew" /></Link>
         <Button variant="fill" href={BOOKING_URL} className="nav-book">Book Now</Button>
         <button
@@ -64,6 +75,7 @@ export default function Navbar() {
           </li>
           <li><NavLink to="/media">Media</NavLink></li>
           <li><NavLink to="/contact">Contact Us</NavLink></li>
+          <li><NavLink to="/muttch">Muttch</NavLink></li>
         </ul>
       </aside>
     </>

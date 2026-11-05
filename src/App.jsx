@@ -5,9 +5,9 @@ import Home from './pages/Home'
 import MenuPage from './pages/Menu'
 import Media from './pages/Muttch'
 // import Contact from './pages/Contact'
-// import KckOnasadhya from './pages/events/KckOnasadhya'
-// import KckTheenmura from './pages/events/KckTheenmura'
-// import KckSeafoodToddyTales from './pages/events/KckSeafoodToddyTales'
+import KckOnasadhya from './pages/events/KckOnasadhya'
+import KckTheenmura from './pages/events/KckTheenmura'
+import KckSeafoodToddyTales from './pages/events/KckSeafoodToddyTales'
 
 export default function App() {
   return (
@@ -16,9 +16,9 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<Home />} />
         <Route path="/menu" element={<MenuPage />} />
-        <Route path="/events/kck-onasadhya" element={<Home />} />
-        <Route path="/events/kck-theenmura" element={<Home />} />
-        <Route path="/events/kck-seafood-toddy-tales" element={<Home />} />
+        <Route path="/events/kck-onasadhya" element={<KckOnasadhya />} />
+        <Route path="/events/kck-theenmura" element={<KckTheenmura />} />
+        <Route path="/events/kck-seafood-toddy-tales" element={<KckSeafoodToddyTales />} />
         <Route path="/contact" element={<Home />} />
         <Route path="*" element={<Home />} />
       </Route>
