@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { SEAFOOD_MENU, FALL_MENU } from '../config'
 import './PromoBanners.css'
 
 /**
@@ -13,13 +14,13 @@ const BANNERS = [
     name: 'Seafood Fest & Toddy Tales',
     desktop: '/images/banners/seafood-desktop.jpeg', // horizontal
     mobile: '/images/banners/seafood-mobile.jpeg',   // vertical
-    menu: '/menu/seafood-menu.png',
+    menu: SEAFOOD_MENU,
   },
   {
     name: 'Kerala Fall Comforts',
     desktop: '/images/banners/fall-desktop.webp',
     mobile: '/images/banners/fall-mobile.webp',
-    menu: '/menu/fall-menu.webp',
+    menu: FALL_MENU,
   },
 ]
 

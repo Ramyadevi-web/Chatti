@@ -31,6 +31,6 @@ export async function sendEnquiry(data) {
     '',
     data.message || '',
   ].join('\n')
-  window.location.href = `mailto:${ENQUIRY_TO}?subject=${encodeURIComponent('Muttch Lounge enquiry')}&body=${encodeURIComponent(body)}`
+  window.location.href = `mailto:${ENQUIRY_TO}?subject=${encodeURIComponent(data.subject || 'Muttch Lounge enquiry')}&body=${encodeURIComponent(body)}`
   return { sent: false }
 }

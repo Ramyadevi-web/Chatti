@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import Button from './Button'
-import { BOOKING_URL } from '../config'
+import { BOOKING_URL, SEAFOOD_MENU, FALL_MENU } from '../config'
 
 const EVENTS = [
   { label: 'KCK Onasadhya', to: '/events/kck-onasadhya' },
@@ -9,12 +9,20 @@ const EVENTS = [
   { label: 'KCK Seafood & Toddy Tales', to: '/events/kck-seafood-toddy-tales' },
 ]
 
+const MENUS = [
+  { label: 'Food Menu', to: '/menu' },
+  { label: 'Bar Menu', to: '/menu/bar' },
+  { label: 'Seafood Menu', href: SEAFOOD_MENU },  // opens the seafood menu image in a new tab
+  { label: 'Fall Menu', href: FALL_MENU },        // opens the fall menu image in a new tab
+]
+
 export default function Navbar() {
   const [open, setOpen] = useState(false)
   const [eventsOpen, setEventsOpen] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
   const { pathname } = useLocation()
-  const isEvent = pathname.startsWith('/events/') || pathname === '/media'
-  const overHero = pathname === '/' || pathname === '/menu' || isEvent
+  const isEvent = true // every page: transparent at the top, solid after scrolling
+  const overHero = true
   const [scrolled, setScrolled] = useState(false)
 
   // events pages: transparent at the top, solid once the user scrolls
@@ -27,7 +35,7 @@ export default function Navbar() {
   }, [isEvent, pathname])
 
   // close the menu whenever the page changes
-  useEffect(() => { setOpen(false); setEventsOpen(false) }, [pathname])
+  useEffect(() => { setOpen(false); setEventsOpen(false); setMenuOpen(false) }, [pathname])
 
   // lock page scroll while menu is open + close with Esc
   useEffect(() => {
@@ -58,7 +66,24 @@ export default function Navbar() {
         <button className="menu-close" aria-label="Close menu" onClick={() => setOpen(false)}>×</button>
         <ul>
           <li><NavLink to="/about">About</NavLink></li>
-          <li><NavLink to="/menu">Menu</NavLink></li>
+          <li>
+            <button
+              className={`menu-drop ${menuOpen ? 'open' : ''}`}
+              aria-expanded={menuOpen}
+              onClick={() => setMenuOpen((v) => !v)}
+            >
+              Menu <span className="caret">▾</span>
+            </button>
+            <ul className={`submenu ${menuOpen ? 'open' : ''}`}>
+              {MENUS.map((m) => (
+                <li key={m.label}>
+                  {m.to
+                    ? <NavLink to={m.to} end>{m.label}</NavLink>
+                    : <a href={m.href} target="_blank" rel="noopener noreferrer">{m.label}</a>}
+                </li>
+              ))}
+            </ul>
+          </li>
           <li>
             <button
               className={`menu-drop ${eventsOpen ? 'open' : ''}`}
@@ -74,7 +99,7 @@ export default function Navbar() {
             </ul>
           </li>
           <li><NavLink to="/media">Media</NavLink></li>
-          <li><NavLink to="/contact">Contact Us</NavLink></li>
+          <li><NavLink to="/contact#contact-form">Contact Us</NavLink></li>
           <li><NavLink to="/muttch">Muttch</NavLink></li>
         </ul>
       </aside>
