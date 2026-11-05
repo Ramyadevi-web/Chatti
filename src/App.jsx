@@ -26,7 +26,7 @@ function Button({ variant = 'line', href = '#', children }) {
 function Hero() {
   return (
     <header className="hero">
-      <img className="logo" src={img('logo.png')} alt="Chatti by Regi Mathew" />
+      <img className="logo" src={img('KCK-Onam-Logo.png')} alt="Chatti by Regi Mathew" />
       <Button variant="fill" href="#book">Book Now</Button>
       <button className="burger" aria-label="Menu"><span /><span /><span /></button>
     </header>
