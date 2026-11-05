@@ -13,7 +13,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false)
   const [eventsOpen, setEventsOpen] = useState(false)
   const { pathname } = useLocation()
-  const isEvent = pathname.startsWith('/events/')
+  const isEvent = pathname.startsWith('/events/') || pathname === '/media'
   const overHero = pathname === '/' || pathname === '/menu' || isEvent
   const [scrolled, setScrolled] = useState(false)
 

@@ -1,0 +1,29 @@
+/* Media / Press page — brand: terracotta #BC7A5E, cream #F5F0E6, deep brown #1b1410 */
+.md-page{background:var(--cream);color:var(--ink)}
+.md-hero{position:relative;height:clamp(340px,44vw,520px);display:grid;place-items:center;text-align:center;color:#fff;background:#3b2a1a url(/images/hero.jpg) center/cover no-repeat}
+.md-hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(27,20,16,.45),rgba(27,20,16,.62))}
+.md-hero-inner{position:relative;padding:90px 24px 0}
+.md-kicker{font-style:italic;font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:#f0d3c3;margin-bottom:12px}
+.md-hero h1{font-size:clamp(30px,4.6vw,54px);font-weight:600;letter-spacing:.02em;line-height:1.15}
+.md-rule{display:block;width:70px;height:2px;background:var(--terracotta);margin:20px auto}
+.md-sub{font-size:13px;letter-spacing:.06em;opacity:.9}
+
+.md-wrap{max-width:1180px;margin:0 auto;padding:60px 24px 100px}
+.md-count{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--terracotta);margin-bottom:22px;font-weight:600}
+.md-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.md-card{position:relative;display:flex;flex-direction:column;background:#fffdf9;border:1px solid rgba(188,122,94,.28);border-top:3px solid var(--terracotta);padding:34px 28px 28px;transition:transform .35s,box-shadow .35s,border-color .35s}
+.md-card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(27,20,16,.12);border-color:var(--terracotta)}
+.md-num{position:absolute;top:14px;right:18px;font-size:11px;letter-spacing:.14em;color:rgba(188,122,94,.7);font-weight:600}
+.md-card h2{font-size:19px;font-weight:600;line-height:1.3;color:#1b1410;margin-bottom:12px;padding-right:26px}
+.md-card p{font-size:13px;line-height:1.75;color:var(--body);margin-bottom:26px;flex:1}
+.md-more{align-self:flex-start;display:inline-flex;gap:8px;align-items:center;padding:10px 22px;border:1px solid var(--terracotta);border-bottom-width:2px;color:#1b1410;font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;transition:.3s}
+.md-more:hover{background:var(--terracotta);color:#fff}
+.md-more span{transition:transform .3s}.md-more:hover span{transform:translateX(4px)}
+
+@media(max-width:980px){.md-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){
+  .md-grid{grid-template-columns:1fr;gap:18px}
+  .md-wrap{padding:44px 16px 70px}
+  .md-card{padding:30px 22px 24px}
+  .md-hero-inner{padding-top:70px}
+}
