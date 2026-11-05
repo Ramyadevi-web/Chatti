@@ -11,9 +11,11 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.4",
+    "pdfjs-dist": "^3.11.174",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
-    "react-router-dom": "^6.30.6",
+    "react-pageflip": "^2.0.3",
+    "react-router-dom": "^7.18.5",
     "tailwindcss": "^4.3.4"
   },
   "devDependencies": {

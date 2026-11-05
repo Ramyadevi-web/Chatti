@@ -13,7 +13,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false)
   const [eventsOpen, setEventsOpen] = useState(false)
   const { pathname } = useLocation()
-  const overHero = pathname === '/'
+  const overHero = pathname === '/' || pathname === '/menu'
 
   // close the menu whenever the page changes
   useEffect(() => { setOpen(false); setEventsOpen(false) }, [pathname])
