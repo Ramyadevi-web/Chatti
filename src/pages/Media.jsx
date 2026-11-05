@@ -6,10 +6,9 @@ export default function Media() {
     <div className="md-page">
       <header className="md-hero">
         <div className="md-hero-inner">
-          <p className="md-kicker">Press &amp; Media</p>
-          <h1>Chatti in the Press</h1>
+          <h1>Media</h1>
           <span className="md-rule" />
-          <p className="md-sub">Press coverage received for Chatti in 2026</p>
+          <p className="md-sub">What the Media is Saying</p>
         </div>
       </header>
 
