@@ -1,0 +1,122 @@
+/* ===== Brand tokens ===== */
+:root{
+  --terracotta:#BC7A5E;      /* buttons, band, eyebrow text */
+  --terracotta-dark:#B5694B;
+  --cream:#F5F0E6;           /* section background */
+  --ink:#111;
+  --body:#444;
+  --white:#fff;
+  --font:'Montserrat',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);color:var(--ink);background:var(--cream);line-height:1.6}
+img{display:block;max-width:100%}
+a{text-decoration:none;color:inherit}
+h2,h3,h4{font-weight:600}
+.cream{background:var(--cream)}
+.terracotta{color:var(--terracotta)}
+
+/* Eyebrow */
+.eyebrow{font-style:italic;font-weight:500;font-size:12px;letter-spacing:.2em;color:var(--terracotta);margin-bottom:10px}
+.eyebrow.light{color:#fff}
+
+/* Buttons */
+.btn{display:inline-block;font-size:12px;font-weight:500;padding:9px 22px;transition:.2s;cursor:pointer}
+.btn-line{border:1px solid var(--terracotta);border-bottom-width:2px;color:var(--ink);background:transparent}
+.btn-line:hover{background:var(--terracotta);color:#fff}
+.btn-fill{background:var(--terracotta);color:#fff;padding:10px 32px}
+.btn-light{background:var(--cream);color:var(--ink);border:1px solid #999;border-bottom-width:2px}
+.btn-light:hover{background:#fff}
+
+/* ===== Hero ===== */
+.hero{position:relative;height:640px;background:#3b2a1a url(/images/hero.jpg) center/cover no-repeat}
+.logo{position:absolute;top:18px;left:56px;width:70px}
+.book-now{position:absolute;top:16px;left:50%;transform:translateX(-50%);border-radius:0}
+.burger{position:absolute;top:16px;right:48px;width:32px;height:30px;background:var(--terracotta);border:0;border-radius:3px;display:flex;flex-direction:column;justify-content:center;gap:4px;padding:0 7px}
+.burger span{height:2px;background:#fff}
+
+/* ===== Generic split sections ===== */
+.split{display:flex;align-items:center;justify-content:center;gap:50px;padding:70px 8%}
+.split-text{max-width:400px}
+.split-text h2{font-size:22px;margin-bottom:8px}
+.split-text .body{font-size:12.5px;color:var(--body);margin-bottom:26px;line-height:1.7}
+.split-text.narrow{max-width:340px}
+.justify{text-align:justify}.italic{font-style:italic}
+.split-img{width:min(46%,375px*1.0);flex:0 0 46%;max-width:376px;height:262px;object-fit:cover;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.split:first-of-type{padding-top:55px}
+.round-plate{width:210px;height:210px;border-radius:50%;object-fit:cover;background:#8a6a3a;box-shadow:0 0 0 6px #d9c9a8}
+.reverse{padding-top:30px;padding-bottom:70px}
+.touchings .split-text{font-size:12px}
+.touchings .round-plate{width:210px;height:210px}
+
+/* ===== Chef band ===== */
+.chef{display:grid;grid-template-columns:1fr 1fr 1fr;min-height:340px}
+.chef img{width:100%;height:100%;object-fit:cover;background:#2c2a28}
+.chef-text{background:var(--terracotta);color:#fff;text-align:center;padding:40px 22px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px}
+.chef-sub{font-style:italic;font-size:12px;letter-spacing:.2em}
+.chef-text h2{font-size:19px;font-weight:500;letter-spacing:.03em;line-height:1.35}
+.quote{font-style:italic;font-size:11px;line-height:1.7}
+
+/* ===== Journey ===== */
+.journey{background:url(/images/journey.jpg) center/cover,linear-gradient(#e0956a,#6b4a3a 30%,#1c2a2c 60%)}
+.journey-inner{max-width:330px;margin:0 auto;font-size:11px;line-height:1.75}
+.journey h2{font-size:19px;font-weight:500;margin-bottom:14px;letter-spacing:.02em}
+.journey p:not(.eyebrow){margin-bottom:22px}
+
+/* ===== Ambience ===== */
+.ambience-head{text-align:center;padding:30px 0 16px}
+.ambience-head h3{font-size:18px;font-weight:500;letter-spacing:.03em}
+.ambience{display:grid;grid-template-columns:1.9fr 1fr 1fr;gap:3px;background:var(--cream)}
+.ambience figure{position:relative;height:254px;overflow:hidden;background:#3a2c20}
+.ambience img{width:100%;height:100%;object-fit:cover}
+.ambience figcaption{position:absolute;left:44px;bottom:12px;right:20px;color:#fff;font-size:10px}
+.ambience h4{font-size:22px;font-weight:400;margin-bottom:6px}
+
+/* ===== Dishes ===== */
+.dishes{text-align:center;padding:90px 8% 60px}
+.dishes h3{font-size:16px;font-weight:500;margin-bottom:22px}
+.cards{display:flex;justify-content:center;gap:12px}
+.cards figure{width:171px}
+.cards img{width:100%;height:193px;object-fit:cover;background:#5a6a3a}
+.cards figcaption{font-size:12px;margin:10px 0 18px;color:var(--ink)}
+.dots{display:flex;justify-content:center;gap:6px;margin-bottom:12px}
+.dots i{width:4px;height:4px;border-radius:50%;background:#ddd}.dots i.on{background:var(--terracotta)}
+
+/* ===== Beverages ===== */
+.bevs{text-align:center;padding:50px 8% 60px}
+.bevs h3{font-size:16px;font-weight:500;margin-bottom:20px;letter-spacing:.02em}
+.bev-grid{display:flex;justify-content:center;gap:22px;margin-bottom:32px}
+.bev-grid img{width:205px;height:193px;object-fit:cover;background:#6b4a3a}
+
+/* ===== Hours + map ===== */
+.hours{display:grid;grid-template-columns:27% 1fr 25%;min-height:276px;background:var(--cream)}
+.hours-img,.map,.map iframe{width:100%;height:100%;object-fit:cover;border:0}
+.hours-box{position:relative;text-align:center;padding:12px 20px;font-size:11px;background:rgba(245,240,230,.9)}
+.hours-box h3{font-size:14px;font-weight:600;margin-bottom:10px}
+.hours-box .btn{margin-bottom:14px}
+table{margin:0 auto;border-collapse:collapse}
+th{font-weight:600;padding:3px 10px}
+td{padding:5px 8px;font-size:11px}
+.last-seating{font-weight:600;margin-top:4px}
+
+/* ===== Footer ===== */
+footer{background:#fff}
+.foot-inner{display:flex;justify-content:space-between;gap:30px;padding:70px 6% 50px;background:linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)),url(/images/footer.jpg) center/cover #2a1f18;color:#fff}
+.foot-brand img{width:90px;margin-bottom:12px}
+.insta{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#fff;color:var(--terracotta-dark)}
+.foot-info{width:50%}
+.foot-info h4{color:var(--terracotta);font-size:16px;margin-bottom:12px}
+.foot-info p{font-size:11px;margin-bottom:10px}
+.copy{background:var(--terracotta);color:#fff;text-align:center;font-size:9px;padding:6px}
+
+/* ===== Responsive ===== */
+@media(max-width:900px){
+  .split,.chef,.hours,.ambience,.foot-inner{display:block}
+  .split{padding:40px 6%}.split>*{margin:0 auto 24px}
+  .split-img{width:100%;max-width:none;height:auto}
+  .ambience figure{height:220px;margin-bottom:3px}
+  .cards,.bev-grid{flex-wrap:wrap}
+  .hero{height:380px}
+  .hours-img{height:220px}.map{height:260px}
+  .foot-info{width:100%;margin-top:20px}
+}
