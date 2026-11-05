@@ -13,7 +13,7 @@ const IMG_BASE = '/images/muttch/'
 const IMG = {
   logo: 'logo-white.webp', hero: 'hero.jpg', intro: 'intro.jpg', chef: 'chef.jpg',
   dining: 'dining.jpg', beverage: 'beverage.jpg',
-  g1: 'gallery-1.jpg', g2: 'gallery-2.jpg', g3: 'gallery-3.jpg', g4: 'gallery-4.jpg',
+  g1: 'gallery-1.webp', g2: 'gallery-2.webp', g3: 'gallery-3.webp', g4: 'gallery-4.webp',
 }
 const img = (k) => IMG_BASE + IMG[k]
 const DECK = '/muttch/Muttch-Event-Deck.pdf' // upload to public/muttch/
