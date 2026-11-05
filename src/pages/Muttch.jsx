@@ -12,10 +12,11 @@ gsap.registerPlugin(ScrollTrigger)
 const IMG_BASE = '/images/muttch/'
 const IMG = {
   logo: 'logo-white.webp', hero: 'hero.jpg', intro: 'intro.jpg', chef: 'chef.jpg',
-  dining: 'dining.jpg', beverage: 'beverage.jpg',
-  g1: 'gallery-1.webp', g2: 'gallery-2.webp', g3: 'gallery-3.webp', g4: 'gallery-4.webp',
+  dining: 'dining.jpg', beverage: 'beverage.webp',
+  g1: 'gallery-1.webp', g2: 'gallery-2.webp', g3: 'gallery-3.webp', g4: 'gallery-4.jpg',
 }
 const img = (k) => IMG_BASE + IMG[k]
+
 const DECK = '/muttch/Muttch-Event-Deck.pdf' // upload to public/muttch/
 const INSTA = 'https://www.instagram.com/muttchlounge?stkn=M3p2OWVkNThpZ3V0&utm_source=qr'
 const FB = 'https://www.facebook.com/profile.php?id=61594628716149'
@@ -23,10 +24,10 @@ const FB = 'https://www.facebook.com/profile.php?id=61594628716149'
 const NAV = [['Experience', '#experience'], ['Awards', '#chef'], ['Dining', '#dining'], ['Gallery', '#gallery']]
 
 const EXPERIENCE = [
-  ['Corporate Gatherings', 'Corporate dinners, team dinners, client entertaining, networking events and holiday parties in Midtown Manhattan.', 'g3'],
-  ['Celebrations', 'Private birthday dinners, engagement parties, anniversaries and milestone celebrations, designed around your guests.', 'g4'],
-  ['Family & Milestones', 'Rehearsal dinners, graduation dinners, bridal and baby showers, and intimate family gatherings', 'g1'],
-  ['Social Gathering', 'Fundraisers, nonprofit events, reunions and group dinners.', 'g2'],
+  ['Corporate Gatherings', 'Corporate dinners, team dinners, client entertaining, networking events and holiday parties in Midtown Manhattan.'],
+  ['Celebrations', 'Private birthday dinners, engagement parties, anniversaries and milestone celebrations, designed around your guests.'],
+  ['Family & Milestones', 'Rehearsal dinners, graduation dinners, bridal and baby showers, and intimate family gatherings'],
+  ['Social Gathering', 'Fundraisers, nonprofit events, reunions and group dinners.'],
 ]
 const STATS = [[70, 'Seated guests'], [100, 'Standing guests'], ['Dedicated', 'Bar'], ['Private Dining', 'Experience']]
 const PACKAGES = [
@@ -58,19 +59,21 @@ const HomeIcon = () => (
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /><path d="M5.5 10v10h13V10M10 20v-5.5h4V20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
 )
 
-/* counters live in a memoised block so React never re-renders over the animation */
+/* memoised so React never re-renders over the counter animation */
 const Stats = memo(function Stats() {
   return (
-    <section className="mt-stats">
-      <div className="mt-container mt-stats-grid">
-        {STATS.map(([n, label]) => (
-          <div className="mt-stat" key={label}>
-            {typeof n === 'number'
-              ? <strong className="mt-stat-number" data-count={n}>0</strong>
-              : <strong className="mt-stat-number text">{n}</strong>}
-            <span className="mt-stat-label">{label}</span>
-          </div>
-        ))}
+    <section className="mt-section mt-stats">
+      <div className="mt-wrap">
+        <div className="mt-eyebrow">Muttch Lounge</div>
+        <div className="mt-stats-grid">
+          {STATS.map(([n, label]) => (
+            <div className="mt-stat" key={label}>
+              <i className="mt-stat-ico"><b /></i>
+              {typeof n === 'number' ? <strong data-count={n}>0</strong> : <strong className="text">{n}</strong>}
+              <span>{label}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   )
@@ -78,29 +81,26 @@ const Stats = memo(function Stats() {
 
 function Beverage() {
   const [active, setActive] = useState(0)
+  const [title, copy, items] = PACKAGES[active]
   return (
-    <section className="mt-beverage">
-      <div className="mt-container">
-        <div className="mt-beverage-header">
-          <div>
-            <div className="mt-eyebrow mt-reveal">Beverage Experience</div>
-            <h2 className="mt-title mt-reveal">Bar packages for private events</h2>
-          </div>
-          <p className="mt-beverage-intro mt-reveal">From handcrafted cocktails to curated wine selections and premium spirits, our beverage collections are designed to complement every celebration.</p>
-        </div>
-        <div className="mt-tabs">
+    <section className="mt-section mt-beverage">
+      <div className="mt-beverage-bg"><img src={img('beverage')} alt="Beverage Experience" loading="lazy" decoding="async" /></div>
+      <div className="mt-wrap mt-beverage-inner">
+        <div className="mt-eyebrow" style={{ color: 'rgba(255,255,255,.7)' }}>Beverage Experience</div>
+        <h2 className="mt-display">Bar packages for private events</h2>
+        <p className="mt-lead">From handcrafted cocktails to curated wine selections and premium spirits, our beverage collections are designed to complement every celebration.</p>
+        <div className="mt-package-nav">
           {PACKAGES.map(([t], i) => (
-            <button key={t} className={`mt-tab ${i === active ? 'active' : ''}`} onClick={() => setActive(i)}>{t}</button>
+            <button key={t} className={`mt-package ${i === active ? 'active' : ''}`} onClick={() => setActive(i)}>{t}</button>
           ))}
         </div>
-        {PACKAGES.map(([t, copy, items], i) => (
-          <div key={t} className={`mt-tab-panel ${i === active ? 'active' : ''}`}>
-            <div><h3>{t}</h3><p>{copy}</p></div>
-            <div className="mt-package-list">
-              {items.map((it) => <div className="mt-package-item" key={it}><span>{it}</span><span>Included</span></div>)}
-            </div>
+        <div className="mt-package-content" key={title}>
+          <h3>{title}</h3>
+          <p className="mt-lead" style={{ color: 'rgba(255,255,255,.68)' }}>{copy}</p>
+          <div className="mt-package-list">
+            {items.map((it) => <div className="mt-package-item" key={it}><span>{it}</span><span>Included</span></div>)}
           </div>
-        ))}
+        </div>
       </div>
     </section>
   )
@@ -122,7 +122,7 @@ function Enquiry() {
     e.preventDefault()
     const form = e.currentTarget
     const data = Object.fromEntries(new FormData(form))
-    if (data.website) return // honeypot: bots fill this hidden field
+    if (data.website) return // honeypot
     setSending(true)
     setError('')
     try {
@@ -136,15 +136,15 @@ function Enquiry() {
 
   return (
     <>
-      <section className="mt-inquiry" id="inquire">
-        <div className="mt-container mt-inquiry-grid">
-          <div className="mt-inquiry-copy">
-            <div className="mt-eyebrow mt-reveal">Start a conversation</div>
-            <h2 className="mt-reveal">Plan your event</h2>
-            <p className="mt-reveal">From private dining in Midtown Manhattan for a small table to a full restaurant buyout, our team shapes the room, the menu and the service around your guests.</p>
-            <div className="mt-contact-details">
-              <span>252 W 37th St, New York, NY 10018</span>
-              <a href="tel:+12129949599">+1 (212) 994 9599</a>
+      <section className="mt-section mt-inquiry" id="inquire">
+        <div className="mt-wrap mt-inquiry-grid">
+          <div>
+            <div className="mt-eyebrow">Start a conversation</div>
+            <h2 className="mt-display">Plan your event</h2>
+            <p className="mt-inquiry-note">From private dining in Midtown Manhattan for a small table to a full restaurant buyout, our team shapes the room, the menu and the service around your guests.</p>
+            <div className="mt-contact">
+              Muttch Lounge at Chatti<br />252 W 37th St, New York, NY 10018<br />
+              <a href="tel:+12129949599">+1 (212) 994 9599</a><br />
               <a href="mailto:info@thechatti.com">info@thechatti.com</a>
             </div>
           </div>
@@ -161,9 +161,12 @@ function Enquiry() {
               </select>
             </div>
             <div className="mt-field"><input type="number" min="1" placeholder=" " id="guests" name="guests" /><label htmlFor="guests">Approx. guests</label></div>
-            <div className="mt-field"><input type="date" id="date" name="date" placeholder=" " /><label htmlFor="date" className="mt-date">Preferred date</label></div>
+            <div className="mt-field"><input type="date" id="date" name="date" /><label htmlFor="date" className="mt-date">Preferred date</label></div>
             <div className="mt-field full"><textarea placeholder=" " id="message" name="message" /><label htmlFor="message">Tell us about your event</label></div>
-            <div className="mt-form-submit"><button type="submit" className="mt-magnetic" disabled={sending}>{sending ? 'Sending...' : 'Send Enquiry →'}</button>{error && <p className="mt-form-error">{error}</p>}</div>
+            <div className="mt-field full">
+              <button className="mt-btn primary mt-magnetic" type="submit" disabled={sending}>{sending ? 'Sending...' : 'Send Enquiry →'}</button>
+              {error && <p className="mt-form-error">{error}</p>}
+            </div>
           </form>
         </div>
       </section>
@@ -172,11 +175,10 @@ function Enquiry() {
         <div className="mt-thanks-overlay" onClick={() => setThanks(false)} />
         <div className="mt-thanks-card">
           <button className="mt-thanks-close" onClick={() => setThanks(false)} aria-label="Close">×</button>
-          <div className="mt-thanks-line" />
-          <div className="mt-thanks-eyebrow">MUTTCH LOUNGE</div>
+          <div className="mt-eyebrow">Muttch Lounge</div>
           <h3>Thank you.</h3>
           <p>Your enquiry has been received.<br />Our team will be in touch with you shortly.</p>
-          <button className="mt-thanks-btn" onClick={() => setThanks(false)}>Close</button>
+          <button className="mt-btn dark" onClick={() => setThanks(false)}>Close</button>
         </div>
       </div>
     </>
@@ -187,12 +189,6 @@ export default function Muttch() {
   const root = useRef(null)
   const nav = useRef(null)
   const cursor = useRef(null)
-  const [menu, setMenu] = useState(false)
-
-  useEffect(() => {
-    document.body.style.overflow = menu ? 'hidden' : ''
-    return () => { document.body.style.overflow = '' }
-  }, [menu])
 
   useEffect(() => {
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -200,37 +196,37 @@ export default function Muttch() {
     const html = document.documentElement
     html.style.scrollBehavior = 'smooth'
     window.scrollTo(0, 0)
-    const onScroll = () => nav.current?.classList.toggle('is-scrolled', window.scrollY > 80)
+    const onScroll = () => nav.current?.classList.toggle('scrolled', window.scrollY > 80)
     window.addEventListener('scroll', onScroll, { passive: true })
     onScroll()
     const undo = []
 
     const ctx = gsap.context(() => {
       if (!reduce) {
-        // 1) photo is shown clearly  2) green overlay fades in  3) logo  4) kicker, headline, text, buttons
+        // 1) photo shown clearly  2) overlay darkens it  3) logo  4) kicker, headline, text, buttons
         gsap.timeline({ delay: 0.3 })
           .fromTo('.mt-hero-media img', { scale: 1.12 }, { scale: 1, duration: 3.2, ease: 'power2.out' }, 0)
           .to('.mt-hero-overlay', { opacity: 1, duration: 1.4, ease: 'power2.inOut' }, 1.8)
           .to('.mt-hero-brand', { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out' }, '>-0.4')
           .to('.mt-hero-kicker', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=.5')
           .to('.mt-hero-text', { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' }, '-=.4')
-          .to('.mt-hero-actions', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=.5')
+          .to('.mt-hero .mt-actions', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=.5')
 
-        gsap.to('.mt-hero-media', { yPercent: 14, ease: 'none', scrollTrigger: { trigger: '.mt-hero', start: 'top top', end: 'bottom top', scrub: 1 } })
-        gsap.to('.mt-hero-content', { y: -80, opacity: 0.3, ease: 'none', scrollTrigger: { trigger: '.mt-hero', start: 'top top', end: 'bottom top', scrub: 1 } })
+        gsap.to('.mt-hero-media', { yPercent: 10, ease: 'none', scrollTrigger: { trigger: '.mt-hero', start: 'top top', end: 'bottom top', scrub: 1 } })
+        gsap.to('.mt-hero-content', { y: -90, opacity: 0.35, ease: 'none', scrollTrigger: { trigger: '.mt-hero', start: 'top top', end: 'bottom top', scrub: 1 } })
 
-        gsap.utils.toArray('.mt-reveal').forEach((el) =>
+        gsap.utils.toArray('.mt-section .mt-eyebrow, .mt-section h2, .mt-section .mt-lead').forEach((el) =>
           gsap.from(el, { y: 35, opacity: 0, duration: 0.8, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 90%', once: true } }))
-        gsap.utils.toArray('.mt-stat-number[data-count]').forEach((el) =>
+        gsap.utils.toArray('.mt-stat strong[data-count]').forEach((el) =>
           gsap.to(el, { textContent: +el.dataset.count, duration: 1.4, ease: 'power2.out', snap: { textContent: 1 }, scrollTrigger: { trigger: el, start: 'top 85%', once: true } }))
 
         const track = root.current.querySelector('.mt-gallery-track')
-        if (track && !matchMedia('(max-width: 650px)').matches) {
+        if (track && !matchMedia('(max-width: 800px)').matches && track.scrollWidth > window.innerWidth) {
           gsap.to(track, { x: () => -(track.scrollWidth - window.innerWidth), ease: 'none',
-            scrollTrigger: { trigger: '.mt-gallery', start: 'top top', end: () => '+=' + (track.scrollWidth - window.innerWidth + 400), pin: true, scrub: 1, invalidateOnRefresh: true } })
+            scrollTrigger: { trigger: '.mt-gallery', start: 'top top', end: () => '+=' + (track.scrollWidth - window.innerWidth + 600), pin: true, scrub: 1, invalidateOnRefresh: true } })
         }
       } else {
-        root.current.querySelectorAll('.mt-stat-number[data-count]').forEach((el) => (el.textContent = el.dataset.count))
+        root.current.querySelectorAll('.mt-stat strong[data-count]').forEach((el) => (el.textContent = el.dataset.count))
       }
 
       if (fine) {
@@ -238,9 +234,9 @@ export default function Muttch() {
         const move = (e) => gsap.to(c, { x: e.clientX, y: e.clientY, opacity: 1, duration: 0.18 })
         window.addEventListener('pointermove', move)
         undo.push(() => window.removeEventListener('pointermove', move))
-        root.current.querySelectorAll('a,button,.mt-experience-card').forEach((el) => {
-          el.addEventListener('mouseenter', () => c.classList.add('is-active'))
-          el.addEventListener('mouseleave', () => c.classList.remove('is-active'))
+        root.current.querySelectorAll('a,button').forEach((el) => {
+          el.addEventListener('mouseenter', () => gsap.to(c, { scale: 2.2, duration: 0.2 }))
+          el.addEventListener('mouseleave', () => gsap.to(c, { scale: 1, duration: 0.2 }))
         })
         root.current.querySelectorAll('.mt-magnetic').forEach((btn) => {
           btn.addEventListener('pointermove', (e) => {
@@ -261,26 +257,16 @@ export default function Muttch() {
 
   return (
     <div className="mt-page" ref={root} id="top">
-      {/* NAV: own header with Home icon */}
+      {/* NAV (own header, with Home icon) */}
       <nav className="mt-nav" ref={nav}>
-        <div className="mt-nav-inner">
-          <div className="mt-nav-side">
-            <div className="mt-nav-links">{NAV.map(([l, h]) => <a key={l} href={h}>{l}</a>)}</div>
-          </div>
-          <a className="mt-nav-brand" href="#top"><img src={img('logo')} alt="Muttch Lounge" width="600" height="300" /></a>
-          <div className="mt-nav-side right">
-            <Link className="mt-icon-link" to="/" aria-label="Back to Chatti home" title="Home"><HomeIcon /></Link>
-            <a className="mt-icon-link" href={INSTA} target="_blank" rel="noopener noreferrer" aria-label="Instagram"><Insta /></a>
-            <a href="#inquire" className="mt-nav-book">Plan Your Event</a>
-            <button className="mt-nav-toggle" aria-label="Menu" aria-expanded={menu} onClick={() => setMenu((v) => !v)}><span /><span /></button>
-          </div>
+        <a className="mt-logo" href="#top"><img src={img('logo')} alt="Muttch Lounge" width="600" height="300" /></a>
+        <div className="mt-nav-links">{NAV.map(([l, h]) => <a key={l} href={h}>{l}</a>)}</div>
+        <div className="mt-nav-actions">
+          <Link className="mt-icon-link" to="/" aria-label="Back to Chatti home" title="Home"><HomeIcon /></Link>
+          <a className="mt-icon-link" href={INSTA} target="_blank" rel="noopener noreferrer" aria-label="Instagram"><Insta /></a>
+          <a className="mt-nav-cta mt-magnetic" href="#inquire">Plan Your Event</a>
         </div>
       </nav>
-      <div className={`mt-mobile-menu ${menu ? 'open' : ''}`} onClick={() => setMenu(false)}>
-        {NAV.map(([l, h]) => <a key={l} href={h}>{l}</a>)}
-        <a href="#inquire">Plan Your Event</a>
-        <Link to="/">Back to Chatti</Link>
-      </div>
 
       <main>
         {/* HERO */}
@@ -291,55 +277,49 @@ export default function Muttch() {
           <div className="mt-hero-overlay" />
           <div className="mt-hero-content">
             <div className="mt-hero-brand"><img className="mt-hero-logo" src={img('logo')} alt="Muttch Lounge" width="600" height="300" decoding="async" /></div>
-            <div className="mt-hero-kicker">Private Dining &amp; Event Venue in Midtown Manhattan</div>
+            <h1 className="mt-hero-kicker">Private Dining &amp; Event Venue <br />in Midtown Manhattan</h1>
             <div className="mt-hero-text">
-              <h1>A room of your own in the heart of Manhattan.</h1>
-              <p className="mt-hero-description">An elegant private dining room and event space in Midtown Manhattan, NYC, for up to 70 guests seated or 100 standing.</p>
+              <p>An elegant private dining room and event space in Midtown Manhattan, NYC, for up to 70 guests seated or 100 standing.</p>
             </div>
-            <div className="mt-hero-actions">
-              <a className="mt-btn mt-btn-primary mt-magnetic" href="#inquire">Plan Your Event</a>
-              <a className="mt-btn mt-btn-outline mt-magnetic" href={DECK} target="_blank" rel="noopener noreferrer">Download Event Deck</a>
+            <div className="mt-actions">
+              <a className="mt-btn primary mt-magnetic" href="#inquire">Plan Your Event</a>
+              <a className="mt-btn mt-magnetic" href={DECK} target="_blank" rel="noopener noreferrer">Download Event Deck</a>
             </div>
           </div>
-          <div className="mt-hero-scroll"><span>Scroll</span><i /></div>
-        </section>
+                  </section>
 
         {/* INTRO */}
-        <section className="mt-intro">
-          <div className="mt-container">
+        <section className="mt-section mt-intro">
+          <div className="mt-wrap">
             <div className="mt-intro-grid">
               <div>
-                <div className="mt-eyebrow mt-reveal">Muttch Lounge at Chatti</div>
-                <h2 className="mt-title mt-reveal">A private dining and event space in Manhattan, designed around your occasion</h2>
+                <div className="mt-eyebrow">Muttch Lounge at Chatti</div>
+                <h2 className="mt-display">A private dining and event space in Manhattan, designed around your occasion</h2>
               </div>
               <div className="mt-intro-copy">
-                <p className="mt-lead mt-reveal">Muttch Lounge is the private dining room and event venue inside Chatti at 252 W 37th St in Midtown Manhattan, a short walk from Penn Station and Times Square. With room for 70 seated or 100 standing guests and a dedicated bar, it is a refined setting for celebrations, corporate dinners, networking events and milestone occasions.</p>
-                <p className="mt-lead mt-reveal">From private dining in Midtown Manhattan for a small table to a full restaurant buyout, our team shapes the room, the menu and the service around your guests.</p>
+                <p className="mt-lead">Muttch Lounge is the private dining room and event venue inside Chatti at 252 W 37th St in Midtown Manhattan, a short walk from Penn Station and Times Square. With room for 70 seated or 100 standing guests and a dedicated bar, it is a refined setting for celebrations, corporate dinners, networking events and milestone occasions.</p>
+                <p className="mt-lead">From private dining in Midtown Manhattan for a small table to a full restaurant buyout, our team shapes the room, the menu and the service around your guests.</p>
+                <div className="mt-intro-image mt-media"><img src={img('intro')} alt="Private dining room at Muttch Lounge in Midtown Manhattan" loading="lazy" decoding="async" /></div>
               </div>
             </div>
-            <div className="mt-intro-image"><img src={img('intro')} alt="Private dining room at Muttch Lounge in Midtown Manhattan" loading="lazy" decoding="async" /></div>
           </div>
         </section>
 
-        {/* EXPERIENCE */}
-        <section className="mt-experience" id="experience">
-          <div className="mt-container">
-            <div className="mt-experience-header">
-              <div>
-                <div className="mt-eyebrow light mt-reveal">The Experience</div>
-                <h2 className="mt-title mt-reveal">Private dining and events we host</h2>
-              </div>
-              <p className="mt-experience-description mt-reveal">A distinct hospitality experience, culturally rooted, quietly luxurious and designed around the people gathered inside it.</p>
+        <Enquiry />
+
+        {/* EXPERIENCE (no hover images) */}
+        <section className="mt-section mt-experience" id="experience">
+          <div className="mt-wrap mt-experience-grid">
+            <div>
+              <div className="mt-eyebrow" style={{ color: '#F3EBDD' }}>The Experience</div>
+              <h2 className="mt-display">Private dining and events we host</h2>
             </div>
-            <div className="mt-experience-grid">
-              {EXPERIENCE.map(([t, d, k], i) => (
-                <a href="#inquire" className="mt-experience-card" key={t}>
-                  <div className="mt-experience-card-image"><img src={img(k)} alt="" loading="lazy" decoding="async" /></div>
-                  <div className="mt-experience-card-content">
-                    <div className="mt-experience-card-number">0{i + 1}</div>
-                    <h3>{t}</h3><p>{d}</p>
-                  </div>
-                </a>
+            <div className="mt-experience-list">
+              {EXPERIENCE.map(([t, d]) => (
+                <div className="mt-experience-item" key={t}>
+                  <a href="#inquire"><h3>{t}</h3></a>
+                  <p>{d}</p>
+                </div>
               ))}
             </div>
           </div>
@@ -347,108 +327,86 @@ export default function Muttch() {
 
         <Stats />
 
-        {/* CHEF / AWARDS */}
-        <section className="mt-craft" id="chef">
-          <div className="mt-container mt-craft-grid">
-            <div className="mt-craft-image"><img src={img('chef')} alt="Chef Regi Mathew, founder of Chatti New York" loading="lazy" decoding="async" /></div>
-            <div className="mt-craft-copy">
-              <div className="mt-eyebrow mt-reveal">The chef behind your menu · Awards</div>
-              <h2 className="mt-reveal">Meet Chef Regi Mathew</h2>
-              <p className="mt-reveal">Visionary chef and founder of Chatti, celebrated for his authentic Kerala cuisine and global culinary excellence.</p>
-              <ul className="mt-awards">
-                {AWARDS.map(([n, s, y]) => (
-                  <li className="mt-award" key={n}><div><b>{n}</b><small>{s}</small></div><span>{y}</span></li>
-                ))}
-              </ul>
-              <Link className="mt-craft-link" to="/about#chef">Meet Chef Regi</Link>
-            </div>
-          </div>
-        </section>
-
         {/* DINING */}
-        <section className="mt-dining" id="dining">
-          <div className="mt-container">
-            <div className="mt-dining-header">
-              <div className="mt-eyebrow light mt-reveal">Menus for your event</div>
-              <h2 className="mt-reveal">Private dining menus</h2>
-              <p className="mt-reveal">Every event is built around your guests. Select from chef-curated lunch and dinner collections featuring authentic Kerala cuisine, handcrafted beverages and personalized enhancements.</p>
-              <div className="mt-dining-actions">
-                <a className="mt-btn mt-btn-primary mt-magnetic" href={DECK} target="_blank" rel="noopener noreferrer">View Event Deck</a>
-                <Link className="mt-btn mt-btn-outline mt-magnetic" to="/menu">View Menu</Link>
+        <section className="mt-section mt-dining" id="dining">
+          <div className="mt-wrap mt-dining-grid">
+            <div>
+              <div className="mt-eyebrow">Menus for your event</div>
+              <h2 className="mt-display">Private dining menus</h2>
+              <p className="mt-lead">Every event is built around your guests. Select from chef-curated lunch and dinner collections featuring authentic Kerala cuisine, handcrafted beverages and personalized enhancements.</p>
+              <div className="mt-actions left">
+                <a className="mt-btn primary mt-magnetic" href={DECK} target="_blank" rel="noopener noreferrer">View Event Deck</a>
+                <Link className="mt-btn dark mt-magnetic" to="/menu">View Menu</Link>
               </div>
             </div>
-            <div className="mt-dining-grid">
-              <div className="mt-dining-card">
-                <img src={img('dining')} alt="Private dining at Muttch Lounge" loading="lazy" decoding="async" />
-                <div className="mt-dining-card-content"><h3>Lunch &amp; dinner collections</h3><p>Chef-curated menus featuring authentic Kerala cuisine.</p></div>
-              </div>
-              <div className="mt-dining-card">
-                <img src={img('beverage')} alt="Beverage experience at Muttch Lounge" loading="lazy" decoding="async" />
-                <div className="mt-dining-card-content"><h3>Handcrafted beverages</h3><p>Personalized enhancements for every occasion.</p></div>
-              </div>
-            </div>
+            <div className="mt-dining-photo mt-media"><img src={img('dining')} alt="Private dining at Muttch Lounge" loading="lazy" decoding="async" /></div>
           </div>
         </section>
 
         <Beverage />
 
+        {/* CHEF / AWARDS */}
+        <section className="mt-section mt-story" id="chef">
+          <div className="mt-wrap mt-story-grid">
+            <div className="mt-story-media mt-media"><img src={img('chef')} alt="Chef Regi Mathew, founder of Chatti New York" loading="lazy" decoding="async" /></div>
+            <div className="mt-story-copy">
+              <h2 className="mt-display mt-awards-title">Awards</h2>
+              <div className="mt-eyebrow">The chef behind your menu</div>
+              <h3 className="mt-chef-name">Meet Chef Regi Mathew</h3>
+              <p className="mt-lead">Visionary chef and founder of Chatti, celebrated for his authentic Kerala cuisine and global culinary excellence.</p>
+              <ul className="mt-awards" style={{ listStyle: 'none', padding: 0 }}>
+                {AWARDS.map(([n, s, y]) => (
+                  <li className="mt-award" key={n}><div><b>{n}</b><small>{s}</small></div><span>{y}</span></li>
+                ))}
+              </ul>
+              <Link className="mt-btn dark mt-magnetic" to="/about#chef">Meet Chef Regi</Link>
+            </div>
+          </div>
+        </section>
+
+        {/* DECK BAND */}
+        <section className="mt-deck">
+          <div className="mt-wrap mt-deck-inner">
+            <div><h2>Download the event deck</h2><p>Explore menus, venue options and curated dining collections.</p></div>
+            <a className="mt-btn dark-fill" href={DECK} target="_blank" rel="noopener noreferrer">Download PDF</a>
+          </div>
+        </section>
+
         {/* GALLERY */}
-        <section className="mt-gallery" id="gallery">
-          <div className="mt-gallery-header">
-            <div className="mt-eyebrow mt-reveal">Inside Muttch</div>
-            <h2 className="mt-reveal">Inside our private dining room in Midtown Manhattan</h2>
+        <section className="mt-section mt-gallery" id="gallery">
+          <div className="mt-wrap">
+            <div className="mt-eyebrow">Inside Muttch</div>
+            <h2 className="mt-display">Inside our private dining room in Midtown Manhattan</h2>
           </div>
           <div className="mt-gallery-track">
-            {GALLERY.map(([f, alt, cap]) => (
-              <div className="mt-gallery-item" key={f}><img src={img(f)} alt={alt} loading="lazy" decoding="async" /><span>{cap}</span></div>
+            {GALLERY.map(([k, alt, cap]) => (
+              <div className="mt-gallery-card" key={k}><img src={img(k)} alt={alt} loading="lazy" decoding="async" /><span>{cap}</span></div>
             ))}
           </div>
         </section>
 
-        {/* NORTH STAR (from the brand guidelines) */}
-        <section className="mt-testimonials">
-          <div className="mt-container mt-testimonial-wrapper">
-            <div className="mt-testimonial-mark">“</div>
-            <p className="mt-testimonial-quote mt-reveal">Muttch Lounge should never need to announce that it is luxurious.</p>
-            <div className="mt-script mt-reveal">The Art of Gathering</div>
-            <div className="mt-testimonial-author">Muttch Lounge · Private Dining &amp; Event Venue</div>
-          </div>
-        </section>
-
-        <Enquiry />
       </main>
 
       {/* PAGE FOOTER */}
       <footer className="mt-footer">
-        <div className="mt-container">
-          <div className="mt-footer-top">
-            <div className="mt-footer-brand"><img src={img('logo')} alt="Muttch Lounge" loading="lazy" /></div>
-            <div className="mt-footer-column">
-              <h4>Visit us</h4>
-              <p>Muttch Lounge at Chatti<br />252 W 37th St, New York, NY 10018</p>
-              <p>In Midtown Manhattan's Garment District, a short walk from Penn Station and Times Square.</p>
-            </div>
-            <div className="mt-footer-column">
-              <h4>Contact</h4>
-              <a href="tel:+12129949599">+1 (212) 994 9599</a>
-              <a href="mailto:info@thechatti.com">info@thechatti.com</a>
-              <a href={DECK} target="_blank" rel="noopener noreferrer">Event deck (PDF)</a>
-            </div>
-            <div className="mt-footer-column">
-              <h4>Follow</h4>
-              <a href={INSTA} target="_blank" rel="noopener noreferrer">Instagram</a>
-              <a href={FB} target="_blank" rel="noopener noreferrer">Facebook</a>
-              <Link to="/">Back to Chatti</Link>
-            </div>
+        <div className="mt-visit">
+          <div className="mt-eyebrow">Visit us</div>
+          <p>Muttch Lounge at Chatti<br />252 W 37th St, New York, NY 10018<br />In Midtown Manhattan's Garment District,<br />a short walk from Penn Station and Times Square.</p>
+          <p><a href="tel:+12129949599">+1 (212) 994 9599</a><br /><a href="mailto:info@thechatti.com">info@thechatti.com</a></p>
+          <div className="mt-visit-icons">
+            <a href={INSTA} target="_blank" rel="noopener noreferrer" aria-label="Instagram"><Insta /></a>
+            <a href={FB} target="_blank" rel="noopener noreferrer" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v2H7v4h3v6h4v-6h3l1-4h-4V8z" fill="currentColor" /></svg></a>
           </div>
-          <div className="mt-footer-bottom">
-            <p>© {new Date().getFullYear()} Muttch Lounge at Chatti</p>
-            <p>Private Dining &amp; Event Venue · Midtown Manhattan</p>
+        </div>
+        <div className="mt-footer-bar">
+          <div className="mt-wrap mt-footer-bar-in">
+            <span className="mt-footer-mark">Muttch</span>
+            <strong>Private Dining &amp; Event Venue · Midtown Manhattan</strong>
+            <small>© {new Date().getFullYear()} Muttch Lounge at Chatti</small>
           </div>
         </div>
       </footer>
 
-      <a className="mt-floating-cta" href="#inquire">Plan Your Event</a>
       <div className="mt-cursor" ref={cursor} />
     </div>
   )
