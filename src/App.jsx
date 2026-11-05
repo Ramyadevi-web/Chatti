@@ -19,15 +19,15 @@ const HOURS = [
   ['Saturday', '12:00-2:30', '3:00-6:00', '5:00-10:00'],
 ]
 
-function Button({ variant = 'line', href = '#', children }) {
-  return <a href={href} className={`btn btn-${variant}`}>{children}</a>
+function Button({ variant = 'line', href = '#', className = '', children }) {
+  return <a href={href} className={`btn btn-${variant} ${className}`}>{children}</a>
 }
 
 function Hero() {
   return (
     <header className="hero">
-      <img className="logo" src={img('KCK-Onam-Logo.png')} alt="Chatti by Regi Mathew" />
-      <Button variant="fill" href="#book">Book Now</Button>
+      <img className="logo" src={img('logo.png')} alt="Chatti by Regi Mathew" />
+      <Button variant="fill" href="#book" className="book-now">Book Now</Button>
       <button className="burger" aria-label="Menu"><span /><span /><span /></button>
     </header>
   )
@@ -136,7 +136,7 @@ function Ambience() {
       </section>
       <section className="ambience">
         <figure>
-          <img src={img('bar.jpg')} alt="Restaurant and bar" />
+          <img src={img('dining.jpg')} alt="Restaurant and bar" />
           <figcaption>
             <h4>Restaurant &amp; Bar</h4>
             <p>
@@ -145,7 +145,7 @@ function Ambience() {
             </p>
           </figcaption>
         </figure>
-        <figure><img src={img('dining.jpg')} alt="Dining room" /></figure>
+        <figure><img src={img('bar.jpg')} alt="Dining room" /></figure>
         <figure><img src={img('banquet.jpg')} alt="Banquet room" /></figure>
       </section>
     </>
