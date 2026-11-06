@@ -98,9 +98,9 @@ export default function Navbar() {
               ))}
             </ul>
           </li>
+          <li><NavLink to="/muttch">Muttch</NavLink></li>
           <li><NavLink to="/media">Media</NavLink></li>
           <li><NavLink to="/contact#contact-form">Contact Us</NavLink></li>
-          <li><NavLink to="/muttch">Muttch</NavLink></li>
         </ul>
       </aside>
     </>
