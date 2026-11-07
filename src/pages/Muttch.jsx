@@ -12,7 +12,7 @@ gsap.registerPlugin(ScrollTrigger)
 const IMG_BASE = '/images/muttch/'
 const IMG = {
   logo: 'logo-white.webp', hero: 'hero.jpg', intro: 'intro.jpg', chef: 'chef.jpg',
-  dining: 'dining.jpg', beverage: 'beverage.webp',
+  dining: 'dining.jpg', beverage: 'beverage.jpg',
   g1: 'gallery-1.webp', g2: 'gallery-2.webp', g3: 'gallery-3.webp', g4: 'gallery-4.jpg',
 }
 const img = (k) => IMG_BASE + IMG[k]
@@ -108,15 +108,14 @@ function Beverage() {
 
 function Enquiry() {
   const [sending, setSending] = useState(false)
-  const [thanks, setThanks] = useState(false)
-  const [error, setError] = useState('')
+  const [toast, setToast] = useState(null) // { type: 'success' | 'error', text }
 
+  // auto-hide the toast after 5 seconds
   useEffect(() => {
-    document.body.style.overflow = thanks ? 'hidden' : ''
-    const esc = (e) => e.key === 'Escape' && setThanks(false)
-    window.addEventListener('keydown', esc)
-    return () => { window.removeEventListener('keydown', esc); document.body.style.overflow = '' }
-  }, [thanks])
+    if (!toast) return
+    const t = setTimeout(() => setToast(null), 5000)
+    return () => clearTimeout(t)
+  }, [toast])
 
   const submit = async (e) => {
     e.preventDefault()
@@ -124,13 +123,13 @@ function Enquiry() {
     const data = Object.fromEntries(new FormData(form))
     if (data.website) return // honeypot
     setSending(true)
-    setError('')
     try {
-      const { sent } = await sendEnquiry(data)
-      if (sent) { form.reset(); setThanks(true) }
+      await sendEnquiry(data)
+      form.reset()
+      setToast({ type: 'success', text: 'Thank you! Your enquiry has been sent. Our team will be in touch shortly.' })
     } catch (err) {
       console.error(err)
-      setError('Unable to send your enquiry. Please try again or email info@thechatti.com.')
+      setToast({ type: 'error', text: 'Sorry, we could not send your enquiry. Please try again or email info@thechatti.com.' })
     } finally { setSending(false) }
   }
 
@@ -165,21 +164,20 @@ function Enquiry() {
             <div className="mt-field full"><textarea placeholder=" " id="message" name="message" /><label htmlFor="message">Tell us about your event</label></div>
             <div className="mt-field full">
               <button className="mt-btn primary mt-magnetic" type="submit" disabled={sending}>{sending ? 'Sending...' : 'Send Enquiry →'}</button>
-              {error && <p className="mt-form-error">{error}</p>}
             </div>
           </form>
         </div>
       </section>
 
-      <div className={`mt-thanks ${thanks ? 'active' : ''}`}>
-        <div className="mt-thanks-overlay" onClick={() => setThanks(false)} />
-        <div className="mt-thanks-card">
-          <button className="mt-thanks-close" onClick={() => setThanks(false)} aria-label="Close">×</button>
-          <div className="mt-eyebrow">Muttch Lounge</div>
-          <h3>Thank you.</h3>
-          <p>Your enquiry has been received.<br />Our team will be in touch with you shortly.</p>
-          <button className="mt-btn dark" onClick={() => setThanks(false)}>Close</button>
-        </div>
+      {/* toast (success / failure) */}
+      <div className={`mt-toast ${toast ? 'show' : ''} ${toast ? toast.type : ''}`} role="status" aria-live="polite">
+        {toast && (
+          <>
+            <span className="mt-toast-ico" aria-hidden="true">{toast.type === 'success' ? '✓' : '!'}</span>
+            <span className="mt-toast-text">{toast.text}</span>
+            <button className="mt-toast-x" onClick={() => setToast(null)} aria-label="Dismiss">×</button>
+          </>
+        )}
       </div>
     </>
   )
@@ -195,6 +193,7 @@ export default function Muttch() {
     const fine = matchMedia('(pointer:fine)').matches
     const html = document.documentElement
     html.style.scrollBehavior = 'smooth'
+    document.body.style.overflow = '' // make sure the page can always scroll
     window.scrollTo(0, 0)
     const onScroll = () => nav.current?.classList.toggle('scrolled', window.scrollY > 80)
     window.addEventListener('scroll', onScroll, { passive: true })

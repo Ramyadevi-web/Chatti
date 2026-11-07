@@ -180,16 +180,16 @@
 .mt-cursor{position:fixed;top:0;left:0;z-index:100;pointer-events:none;width:18px;height:18px;border:1px solid rgba(184,117,88,.9);border-radius:50%;transform:translate(-50%,-50%);mix-blend-mode:difference;opacity:0}
 @media(pointer:coarse){.mt-cursor{display:none}}
 
-/* thank-you popup */
-.mt-thanks{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .35s}
-.mt-thanks.active{opacity:1;pointer-events:auto}
-.mt-thanks-overlay{position:absolute;inset:0;background:rgba(17,24,20,.78);backdrop-filter:blur(4px)}
-.mt-thanks-card{position:relative;width:min(460px,90vw);padding:56px 44px 44px;background:var(--paper);color:var(--ink);text-align:center;transform:translateY(24px);transition:transform .4s}
-.mt-thanks.active .mt-thanks-card{transform:none}
-.mt-thanks-close{position:absolute;top:10px;right:16px;border:0;background:none;font-size:30px;line-height:1;color:var(--ink);cursor:pointer}
-.mt-thanks-card h3{font:200 42px var(--display);margin:10px 0 12px}
-.mt-thanks-card p{color:#55554f;line-height:1.7;font-size:15px}
-.mt-thanks-card .mt-btn{margin-top:26px;border-color:var(--line);min-height:40px}
+/* toast */
+.mt-toast{position:fixed;z-index:300;top:84px;right:24px;display:flex;align-items:flex-start;gap:12px;max-width:min(420px,calc(100vw - 32px));padding:16px 14px 16px 16px;background:#fff;color:var(--ink);border-left:4px solid var(--forest);box-shadow:0 14px 40px rgba(0,0,0,.22);font-size:14.5px;line-height:1.5;opacity:0;transform:translateY(-14px);pointer-events:none;transition:opacity .35s,transform .35s}
+.mt-toast.show{opacity:1;transform:none;pointer-events:auto}
+.mt-toast.success{border-left-color:#2f7a4a}
+.mt-toast.error{border-left-color:#b3402e}
+.mt-toast-ico{flex:0 0 24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;font-weight:600;background:var(--forest)}
+.mt-toast.success .mt-toast-ico{background:#2f7a4a}
+.mt-toast.error .mt-toast-ico{background:#b3402e}
+.mt-toast-text{flex:1}
+.mt-toast-x{border:0;background:none;color:var(--muted);font-size:22px;line-height:1;cursor:pointer;padding:0 4px}
 
 /* responsive */
 @media(max-width:800px){
@@ -205,7 +205,7 @@
   .mt-gallery-track{width:auto;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 16px}.mt-gallery-card{flex:0 0 76vw;height:340px;scroll-snap-align:start}
   .mt-footer-bar-in{flex-wrap:wrap;gap:8px}.mt-footer-bar small{margin-left:0;width:100%}
 }
-@media(max-width:480px){.mt-nav-cta{padding:9px 12px;font-size:11px}.mt-hero .mt-actions .mt-btn{width:100%}.mt-btn{min-height:40px}.mt-logo img{width:46px}}
+@media(max-width:480px){.mt-toast{top:auto;bottom:16px;right:16px;left:16px;max-width:none}.mt-nav-cta{padding:9px 12px;font-size:11px}.mt-hero .mt-actions .mt-btn{width:100%}.mt-btn{min-height:40px}.mt-logo img{width:46px}}
 @media(prefers-reduced-motion:reduce){
   .mt-hero-brand,.mt-hero-kicker,.mt-hero-text,.mt-hero .mt-actions{opacity:1!important;transform:none!important}
   .mt-hero-overlay{opacity:1!important}.mt-hero-media img{transform:none!important}

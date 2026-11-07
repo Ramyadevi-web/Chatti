@@ -14,8 +14,8 @@ export default function Contact() {
     if (data.website) return // honeypot
     setSending(true); setError('')
     try {
-      const { sent } = await sendEnquiry({ ...data, subject: 'Chatti website enquiry' })
-      if (sent) { form.reset(); setDone(true) }
+      await sendEnquiry({ ...data, subject: 'Chatti website enquiry' })
+      form.reset(); setDone(true)
     } catch (err) {
       console.error(err)
       setError(`Unable to send your message. Please email ${ENQUIRY_TO}.`)
