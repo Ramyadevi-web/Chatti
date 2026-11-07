@@ -1,10 +1,13 @@
 // ---- Site settings (edit these) ----
-export const BOOKING_URL = 'https://resy.com/cities/new-york-ny/venues/the-chatti?seats=2&date=2026-11-05'      // reservation page for "Book Now"
-export const INSTAGRAM_URL = 'https://www.instagram.com/muttchlounge?stkn=M3p2OWVkNThpZ3V0&utm_source=qr'    // restaurant Instagram
+export const BOOKING_URL = 'https://www.opentable.com/'      // reservation page for "Book Now"
+export const INSTAGRAM_URL = 'https://www.instagram.com/'    // restaurant Instagram
 
 // ---- Muttch enquiry form (no WordPress involved) ----
 // Where enquiries are delivered:
-export const ENQUIRY_TO = 'ramyadevim7@gmail.com'
+export const ENQUIRY_TO = 'muttchlounge@thechatti.com'
+
+// Contact page form: delivered to BOTH addresses (comma separated). Muttch form still uses ENQUIRY_TO only.
+export const CONTACT_TO = 'info@thechatti.com, mo.newyork@thechatti.com'   // <-- put your two emails here
 
 // Free email service that works straight from React (https://www.emailjs.com):
 // create an account -> add an email service -> create a template -> paste the 3 values here.
@@ -17,6 +20,6 @@ export const EMAILJS = {
 
 // ---- Menu links (used by the navbar dropdown and the popup banners) ----
 // Put the files in public/menu/
-export const SEAFOOD_MENU = '/menu/seafood-menu.webp'
+export const SEAFOOD_MENU = '/menu/seafood-menu.png'
 export const FALL_MENU = '/menu/fall-menu.webp'
 export const BAR_MENU_IMAGE = '/menu/bar-menu.jpg'   // upload your bar menu image here

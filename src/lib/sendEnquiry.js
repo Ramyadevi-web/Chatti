@@ -25,10 +25,14 @@ export async function sendEnquiry(data) {
         guests: data.guests || '',
         date: data.date || '',
         message: data.message || '',
-        to_email: ENQUIRY_TO,
+        to_email: data.to || ENQUIRY_TO,   // one address, or several separated by commas
       },
     }),
   })
-  if (!res.ok) throw new Error(await res.text())
+  if (!res.ok) {
+    const reason = await res.text()
+    console.error('EmailJS error:', res.status, reason) // open the browser console (F12) to see why
+    throw new Error(reason)
+  }
   return { sent: true }
 }
