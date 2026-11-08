@@ -20,6 +20,6 @@ export const EMAILJS = {
 
 // ---- Menu links (used by the navbar dropdown and the popup banners) ----
 // Put the files in public/menu/
-export const SEAFOOD_MENU = '/menu/seafood-menu.png'
+export const SEAFOOD_MENU = '/menu/seafood-menu.webp'
 export const FALL_MENU = '/menu/fall-menu.webp'
 export const BAR_MENU_IMAGE = '/menu/bar-menu.jpg'   // upload your bar menu image here
