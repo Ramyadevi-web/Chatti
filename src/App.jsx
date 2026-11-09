@@ -15,7 +15,7 @@ export default function App() {
   return (
     <Routes>
       {/* standalone page: own navbar + footer */}
-      <Route path="/muttch" element={<Muttch />} />
+      <Route path="/muttch-lounge" element={<Muttch />} />
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         {/* <Route path="/about" element={<About />} /> */}
