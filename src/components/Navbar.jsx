@@ -12,7 +12,7 @@ const EVENTS = [
 const MENUS = [
   { label: 'Food Menu', to: '/menu' },
   { label: 'Bar Menu', to: '/menu/bar' },
-  // { label: 'Seafood Menu', href: SEAFOOD_MENU },  // opens the seafood menu image in a new tab
+  { label: 'Seafood Menu', href: SEAFOOD_MENU },  // opens the seafood menu image in a new tab
   // { label: 'Fall Menu', href: FALL_MENU },        // opens the fall menu image in a new tab
 ]
 
