@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import Navbar from './Navbar'
 import Footer from './Footer'
-import PromoBanners from './PromoBanners'
+// import PromoBanners from './PromoBanners'
 
 // scroll to top on every page change (or to #section if the link has one)
 function ScrollManager() {
@@ -24,7 +24,7 @@ export default function Layout() {
       <Navbar />
       <main><Outlet /></main>
       <Footer />
-      <PromoBanners />
+      {/* <PromoBanners /> */}
     </>
   )
 }
