@@ -1,6 +1,6 @@
 // ---- Site settings (edit these) ----
-export const BOOKING_URL = 'https://www.opentable.com/'      // reservation page for "Book Now"
-export const INSTAGRAM_URL = 'https://www.instagram.com/'    // restaurant Instagram
+export const BOOKING_URL = 'https://resy.com/cities/new-york-ny/venues/the-chatti?seats=2&date=2026-11-05'      // reservation page for "Book Now"
+export const INSTAGRAM_URL = 'https://www.instagram.com/chatti.newyork?srtk=d2F4Mm1pM3FkcmI='    // restaurant Instagram
 
 // ---- Muttch enquiry form (no WordPress involved) ----
 // Where enquiries are delivered:
