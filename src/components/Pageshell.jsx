@@ -1,5 +1,5 @@
 // Temporary wrapper for the new pages. Replace the content as you share each design.
-export default function PageShell({ title, children }) {
+export default function Pageshell({ title, children }) {
   return (
     <section className="cream page-shell">
       <h1>{title}</h1>
