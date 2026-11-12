@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import PageShell from '../components/PageShell'
+import Pageshell from '../components/PageShell'
 import Seo from '../components/Seo'
 
 export default function NotFound() {
