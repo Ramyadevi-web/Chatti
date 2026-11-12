@@ -8,7 +8,7 @@ export const ANALYTICS = {
   clarityId: 'z9jp63dxq0',     // Microsoft Clarity
   // true  = analytics + session recording load ONLY after the visitor clicks "Accept"
   // false = they load for everyone (a Privacy Policy link is still shown in the footer)
-  requireConsent: true,
+  requireConsent: false,
 }
 
 // Email shown on the Contact and Privacy pages (display only)
