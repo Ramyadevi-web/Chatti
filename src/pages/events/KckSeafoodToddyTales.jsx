@@ -1,7 +1,11 @@
 import EventPage from '../../components/EventPage'
+import Seo from '../../components/Seo'
 
 export default function KckSeafoodToddyTales() {
   return (
+    <>
+        <Seo title="Seafood Fest & Toddy Tales | Chatti by Chef Regi Mathew, NYC" description="Kerala's coastal and backwater seafood with toddy, a festival menu curated by Chef Regi Mathew at Chatti in Midtown Manhattan." path="/events/kck-seafood-toddy-tales" />
+       
     <EventPage
       heroImage="/images/events/seafood-hero.webp"
       theme="dark"
@@ -23,5 +27,6 @@ export default function KckSeafoodToddyTales() {
         ],
       }}
     />
+    </>
   )
 }

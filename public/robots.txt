@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://chattinewyork.com/sitemap.xml

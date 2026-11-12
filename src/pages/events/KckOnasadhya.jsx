@@ -1,7 +1,10 @@
 import EventPage from '../../components/EventPage'
+import Seo from '../../components/Seo'
 
 export default function KckOnasadhya() {
   return (
+    <>
+    <Seo title="KCK Onam Onasadhya | 26-Course Kerala Feast at Chatti, NYC" description="Celebrate Onam at Chatti with the KCK Onasadhya, a grand multi-course vegetarian Kerala banquet by Chef Regi Mathew in Midtown Manhattan." path="/events/kck-onasadhya" />
     <EventPage
       heroImage="/images/events/onam-hero.webp"
       logo="/images/events/kck-onam-logo.png"
@@ -25,5 +28,7 @@ export default function KckOnasadhya() {
         ],
       }}
     />
+    </>
+
   )
 }

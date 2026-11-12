@@ -1,8 +1,12 @@
-import { memo, useEffect, useRef, useState } from 'react'
+import { memo, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { sendEnquiry } from '../lib/sendEnquiry'
+import { track } from '../lib/analytics'
+import Seo from '../components/Seo'
+import { muttchSchema } from '../lib/schema'
+import { AWARDS } from '../data/awards'
 import './Muttch.css'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -12,7 +16,7 @@ gsap.registerPlugin(ScrollTrigger)
 const IMG_BASE = '/images/muttch/'
 const IMG = {
   logo: 'logo-white.webp', hero: 'hero.jpg', intro: 'intro.jpg', chef: 'chef.jpg',
-  dining: 'dining.jpg', beverage: 'beverage.jpg',
+  dining: 'dining.jpg', beverage: 'beverage.webp',
   g1: 'gallery-1.webp', g2: 'gallery-2.webp', g3: 'gallery-3.webp', g4: 'gallery-4.jpg',
 }
 const img = (k) => IMG_BASE + IMG[k]
@@ -36,14 +40,6 @@ const PACKAGES = [
   ['House', 'A wider wine list with house spirits and a menu of classic cocktails.', ['A wider wine list', 'House spirits', 'Classic cocktails']],
   ['Prestige', 'Premium spirits, sparkling wine and a bartender-led cocktail list for your guests.', ['Premium spirits', 'Sparkling wine', 'Bartender-led cocktail list']],
   ['Reserve', "Top-shelf spirits and reserve wines, paired course by course with Chef Regi's menu.", ['Top-shelf spirits', 'Reserve wines', "Paired course by course with Chef Regi's menu"]],
-]
-const AWARDS = [
-  ['Best Chef Milan', 'One Knife', '2025'],
-  ['The Best Chef Dubai', 'One Knife', '2024'],
-  ['Hospitality Horizon Top Chefs Award', 'Hall of Fame', '2024'],
-  ['Zee Zest Unlimit Awards', 'Chef of the Year', '2024'],
-  ['Food Superstar', 'Hall of Fame 2024, Chef 2022 & 2023', '2022–24'],
-  ['Times Food & Nightlife Awards', 'Chef of the Year', '2019'],
 ]
 const GALLERY = [
   ['g1', 'Private dining room at Muttch Lounge in Midtown Manhattan', 'Thoughtfully designed'],
@@ -125,6 +121,7 @@ function Enquiry() {
     setSending(true)
     try {
       await sendEnquiry(data)
+      track('generate_lead', { form_name: 'muttch_enquiry' })
       form.reset()
       setToast({ type: 'success', text: 'Thank you! Your enquiry has been sent. Our team will be in touch shortly.' })
     } catch (err) {
@@ -143,7 +140,7 @@ function Enquiry() {
             <p className="mt-inquiry-note">From private dining in Midtown Manhattan for a small table to a full restaurant buyout, our team shapes the room, the menu and the service around your guests.</p>
             <div className="mt-contact">
               Muttch Lounge at Chatti<br />252 W 37th St, New York, NY 10018<br />
-              <a href="tel:+12129949599">+1 (212) 994 9599</a><br />
+              <a href="tel:+12129949599" onClick={() => track('phone_click', { location: 'muttch' })}>+1 (212) 994 9599</a><br />
               <a href="mailto:info@thechatti.com">info@thechatti.com</a>
             </div>
           </div>
@@ -164,6 +161,7 @@ function Enquiry() {
             <div className="mt-field full"><textarea placeholder=" " id="message" name="message" /><label htmlFor="message">Tell us about your event</label></div>
             <div className="mt-field full">
               <button className="mt-btn primary mt-magnetic" type="submit" disabled={sending}>{sending ? 'Sending...' : 'Send Enquiry →'}</button>
+              <p className="mt-privacy">By sending this enquiry you agree to our <Link to="/privacy">Privacy Policy</Link>.</p>
             </div>
           </form>
         </div>
@@ -188,7 +186,7 @@ export default function Muttch() {
   const nav = useRef(null)
   const cursor = useRef(null)
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches
     const fine = matchMedia('(pointer:fine)').matches
     const html = document.documentElement
@@ -203,13 +201,13 @@ export default function Muttch() {
     const ctx = gsap.context(() => {
       if (!reduce) {
         // 1) photo shown clearly  2) overlay darkens it  3) logo  4) kicker, headline, text, buttons
-        gsap.timeline({ delay: 0.3 })
-          .fromTo('.mt-hero-media img', { scale: 1.12 }, { scale: 1, duration: 3.2, ease: 'power2.out' }, 0)
-          .to('.mt-hero-overlay', { opacity: 1, duration: 1.4, ease: 'power2.inOut' }, 1.8)
-          .to('.mt-hero-brand', { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out' }, '>-0.4')
-          .to('.mt-hero-kicker', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=.5')
-          .to('.mt-hero-text', { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' }, '-=.4')
-          .to('.mt-hero .mt-actions', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=.5')
+        gsap.timeline({ delay: 0.15 })
+          .fromTo('.mt-hero-media img', { scale: 1.1 }, { scale: 1, duration: 2.2, ease: 'power2.out' }, 0)
+          .to('.mt-hero-overlay', { opacity: 1, duration: 0.8, ease: 'power2.inOut' }, 0.5)
+          .fromTo('.mt-hero-brand', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '>-0.4')
+          .fromTo('.mt-hero-kicker', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=.4')
+          .fromTo('.mt-hero-text', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=.3')
+          .fromTo('.mt-hero .mt-actions', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=.4')
 
         gsap.to('.mt-hero-media', { yPercent: 10, ease: 'none', scrollTrigger: { trigger: '.mt-hero', start: 'top top', end: 'bottom top', scrub: 1 } })
         gsap.to('.mt-hero-content', { y: -90, opacity: 0.35, ease: 'none', scrollTrigger: { trigger: '.mt-hero', start: 'top top', end: 'bottom top', scrub: 1 } })
@@ -256,6 +254,13 @@ export default function Muttch() {
 
   return (
     <div className="mt-page" ref={root} id="top">
+      <Seo
+        title="Muttch Lounge | Private Dining & Event Venue in Midtown Manhattan, NYC"
+        description="Muttch Lounge at Chatti is a private dining room and event venue in Midtown Manhattan for up to 70 seated or 100 standing guests. Corporate dinners, celebrations and milestone events."
+        path="/muttch"
+        image="/images/muttch/hero.jpg"
+        jsonLd={muttchSchema([INSTA, FB])}
+      />
       {/* NAV (own header, with Home icon) */}
       <nav className="mt-nav" ref={nav}>
         <a className="mt-logo" href="#top"><img src={img('logo')} alt="Muttch Lounge" width="600" height="300" /></a>
@@ -282,7 +287,7 @@ export default function Muttch() {
             </div>
             <div className="mt-actions">
               <a className="mt-btn primary mt-magnetic" href="#inquire">Plan Your Event</a>
-              <a className="mt-btn mt-magnetic" href={DECK} target="_blank" rel="noopener noreferrer">Download Event Deck</a>
+              <a className="mt-btn mt-magnetic" href={DECK} onClick={() => track('file_download', { file_name: 'Muttch-Event-Deck.pdf' })} target="_blank" rel="noopener noreferrer">Download Event Deck</a>
             </div>
           </div>
                   </section>
@@ -334,7 +339,7 @@ export default function Muttch() {
               <h2 className="mt-display">Private dining menus</h2>
               <p className="mt-lead">Every event is built around your guests. Select from chef-curated lunch and dinner collections featuring authentic Kerala cuisine, handcrafted beverages and personalized enhancements.</p>
               <div className="mt-actions left">
-                <a className="mt-btn primary mt-magnetic" href={DECK} target="_blank" rel="noopener noreferrer">View Event Deck</a>
+                <a className="mt-btn primary mt-magnetic" href={DECK} onClick={() => track('file_download', { file_name: 'Muttch-Event-Deck.pdf' })} target="_blank" rel="noopener noreferrer">View Event Deck</a>
                 <Link className="mt-btn dark mt-magnetic" to="/menu">View Menu</Link>
               </div>
             </div>
@@ -367,7 +372,7 @@ export default function Muttch() {
         <section className="mt-deck">
           <div className="mt-wrap mt-deck-inner">
             <div><h2>Download the event deck</h2><p>Explore menus, venue options and curated dining collections.</p></div>
-            <a className="mt-btn dark-fill" href={DECK} target="_blank" rel="noopener noreferrer">Download PDF</a>
+            <a className="mt-btn dark-fill" href={DECK} onClick={() => track('file_download', { file_name: 'Muttch-Event-Deck.pdf' })} target="_blank" rel="noopener noreferrer">Download PDF</a>
           </div>
         </section>
 
@@ -391,7 +396,7 @@ export default function Muttch() {
         <div className="mt-visit">
           <div className="mt-eyebrow">Visit us</div>
           <p>Muttch Lounge at Chatti<br />252 W 37th St, New York, NY 10018<br />In Midtown Manhattan's Garment District,<br />a short walk from Penn Station and Times Square.</p>
-          <p><a href="tel:+12129949599">+1 (212) 994 9599</a><br /><a href="mailto:info@thechatti.com">info@thechatti.com</a></p>
+          <p><a href="tel:+12129949599" onClick={() => track('phone_click', { location: 'muttch' })}>+1 (212) 994 9599</a><br /><a href="mailto:info@thechatti.com">info@thechatti.com</a></p>
           <div className="mt-visit-icons">
             <a href={INSTA} target="_blank" rel="noopener noreferrer" aria-label="Instagram"><Insta /></a>
             <a href={FB} target="_blank" rel="noopener noreferrer" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v2H7v4h3v6h4v-6h3l1-4h-4V8z" fill="currentColor" /></svg></a>

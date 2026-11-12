@@ -1,1 +1,20 @@
-/*    /index.html   200
+
+# 1) Old website URLs -> new pages (permanent / 301)
+/about-chef    /about     301
+/contact-us    /contact   301
+/career        /          301
+
+# 2) Real pages of the React app -> index.html (status 200)
+/about                          /index.html  200
+/menu                           /index.html  200
+/menu/bar                       /index.html  200
+/media                          /index.html  200
+/contact                        /index.html  200
+/privacy                        /index.html  200
+/muttch                         /index.html  200
+/events/kck-onasadhya           /index.html  200
+/events/kck-theenmura           /index.html  200
+/events/kck-seafood-toddy-tales /index.html  200
+
+# 3) Anything else (unknown page, missing image/PDF) -> a genuine 404
+/*    /404.html   404

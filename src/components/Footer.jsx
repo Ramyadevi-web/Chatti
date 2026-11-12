@@ -1,4 +1,6 @@
+import { Link } from 'react-router-dom'
 import { INSTAGRAM_URL } from '../config'
+import { track } from '../lib/analytics'
 
 export default function Footer() {
   return (
@@ -16,13 +18,13 @@ export default function Footer() {
         </div>
         <div className="foot-info">
           <h4>Information</h4>
-          <p><a href="tel:+12129949599">Phone: +1 (212) 994 9599</a></p>
-          <p><a href="tel:+16465989393">Mobile: +1 (646) 598 9393</a></p>
+          <p><a href="tel:+12129949599" onClick={() => track('phone_click', { location: 'footer' })}>Phone: +1 (212) 994 9599</a></p>
+          <p><a href="tel:+16465989393" onClick={() => track('phone_click', { location: 'footer_mobile' })}>Mobile: +1 (646) 598 9393</a></p>
           <p><a href="mailto:info@thechatti.com">Email : info@thechatti.com</a></p>
           <p>Address : 252 W 37th St, New York, NY 10018</p>
         </div>
       </div>
-      <div className="copy">Copyrights 2026 © All rights reserved by Chatti.</div>
+      <div className="copy">Copyrights 2026 © All rights reserved by Chatti. <Link to="/privacy" style={{ marginLeft: 12, textDecoration: 'underline' }}>Privacy Policy</Link></div>
     </footer>
   )
 }

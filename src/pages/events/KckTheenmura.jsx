@@ -1,7 +1,11 @@
 import EventPage from '../../components/EventPage'
+import Seo from '../../components/Seo'
 
 export default function KckTheenmura() {
   return (
+     <>
+    <Seo title="KCK Theenmura | Royal Kerala Multi-Course Feast at Chatti, NYC" description="Experience Theenmura, the legendary multi-course royal feast of Kerala, at Chatti by Chef Regi Mathew in Midtown Manhattan." path="/events/kck-theenmura" />
+      
     <EventPage
       heroImage="/images/events/theenmura-hero.webp"
       logo="/images/events/theenmura-logo.png"
@@ -24,5 +28,6 @@ export default function KckTheenmura() {
         ],
       }}
     />
+    </>
   )
 }

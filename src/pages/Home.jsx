@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import Button from '../components/Button'
-import { BOOKING_URL } from '../config'
+import { BOOKING_URL, INSTAGRAM_URL } from '../config'
+import Seo from '../components/Seo'
+import { restaurantSchema } from '../lib/schema'
 
 const img = (n) => `/images/${n}`
 
@@ -213,6 +215,12 @@ function Hours() {
 export default function Home() {
   return (
     <>
+      <Seo
+        title="Chatti by Chef Regi Mathew | Kerala Toddy Shop Restaurant in Midtown Manhattan, NYC"
+        description="Authentic Kerala cuisine and toddy shop small plates by Chef Regi Mathew at 252 W 37th St, Midtown Manhattan. View the menu, hours and book a table."
+        path="/"
+        jsonLd={restaurantSchema(HOURS, INSTAGRAM_URL)}
+      />
       <Hero />
       <LoveLetter />
       <Community />

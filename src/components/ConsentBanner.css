@@ -1,0 +1,8 @@
+.cb{position:fixed;z-index:900;left:16px;right:16px;bottom:16px;max-width:720px;margin:0 auto;display:flex;align-items:center;gap:18px;padding:16px 20px;background:#1b1410;color:#f3e9de;font:400 13px/1.55 'Montserrat',system-ui,sans-serif;box-shadow:0 10px 36px rgba(0,0,0,.35)}
+.cb p{margin:0;flex:1}
+.cb a{color:#e7b49a;text-decoration:underline}
+.cb-btns{display:flex;gap:10px;flex:0 0 auto}
+.cb button{font:600 12px 'Montserrat',system-ui,sans-serif;letter-spacing:.06em;padding:10px 20px;border:1px solid #BC7A5E;cursor:pointer}
+.cb-yes{background:#BC7A5E;color:#fff}.cb-yes:hover{background:#B5694B}
+.cb-no{background:transparent;color:#f3e9de}.cb-no:hover{background:rgba(255,255,255,.08)}
+@media(max-width:600px){.cb{flex-direction:column;align-items:stretch;gap:12px}.cb-btns{justify-content:flex-end}}
