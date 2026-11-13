@@ -252,12 +252,12 @@ export default function Muttch() {
     }
   }, [])
 
-  return (
+  return ( 
     <div className="mt-page" ref={root} id="top">
       <Seo
         title="Muttch Lounge | Private Dining & Event Venue in Midtown Manhattan, NYC"
         description="Muttch Lounge at Chatti is a private dining room and event venue in Midtown Manhattan for up to 70 seated or 100 standing guests. Corporate dinners, celebrations and milestone events."
-        path="/muttch"
+        path="/muttch-lounge"
         image="/images/muttch/hero.jpg"
         jsonLd={muttchSchema([INSTA, FB])}
       />

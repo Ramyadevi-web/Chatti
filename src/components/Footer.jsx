@@ -6,6 +6,7 @@ export default function Footer() {
   return (
     <footer>
       <div className="foot-inner">
+        
         <div className="foot-brand">
           <img src="/images/logo.png" alt="Chatti" />
           <a className="insta" href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
