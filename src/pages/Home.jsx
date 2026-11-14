@@ -57,7 +57,7 @@ function Community() {
           Experience Kerala's toddy shop heritage at Chatti, where bold flavors, traditional recipes, and a
           communal spirit blend to celebrate the vibrant essence of this Southern Indian regional cuisine.
         </p>
-        <Button to="/about">Know More</Button>
+        {/* <Button to="/about">Know More</Button> */}
       </div>
     </section>
   )
@@ -108,14 +108,13 @@ function Journey() {
       <div className="journey-inner">
         <p className="eyebrow light">From Kerala's Shores to New York's Heart</p>
         <h2>The Journey</h2>
-        <p>
+        <p  className="journey-text">
           In pursuit of preserving Kerala's rich culinary traditions, Chef Regi embarked on an extensive research
           journey spanning over three years, visiting <b>70 toddy shops and 265 homes</b> across the state. Learning
           from home cooks, toddy shop chefs, and culinary artisans, he meticulously documented{' '}
           <b>over 800 recipes</b>, uncovering untold culinary stories, unrecorded food traditions, and regional
           treasures. This deep-rooted research forms the very foundation of both Kappa Chakka Kandhari and Chatti.
         </p>
-        <Button variant="light" to="/about#journey">Read More</Button>
       </div>
     </section>
   )

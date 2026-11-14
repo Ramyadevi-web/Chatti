@@ -4,9 +4,9 @@ import Button from './Button'
 import { BOOKING_URL, SEAFOOD_MENU, FALL_MENU } from '../config'
 
 const EVENTS = [
-  { label: 'KCK Onasadhya', to: '/events/kck-onasadhya' },
-  { label: 'KCK Theenmura', to: '/events/kck-theenmura' },
-  { label: 'KCK Seafood & Toddy Tales', to: '/events/kck-seafood-toddy-tales' },
+  { label: 'Onam', to: '/events/kck-onasadhya' },
+  { label: 'Theenmura', to: '/events/kck-theenmura' },
+  { label: 'Seafood Fest & Toddy Tales', to: '/events/kck-seafood-toddy-tales' },
 ]
 
 const MENUS = [
