@@ -62,7 +62,81 @@ h2,h3,h4{font-weight:600}
 .journey-inner{max-width:330px;margin:0 auto;font-size:11px;line-height:1.75}
 .journey h2{font-size:19px;font-weight:500;margin-bottom:14px;letter-spacing:.02em}
 .journey p:not(.eyebrow){margin-bottom:22px}
+/* Journey section: readable text on the dark green photo */
+.journey { position: relative; isolation: isolate; }
 
+/* ===== Journey section (final) ===== */
+section.journey {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(60px, 8vw, 100px) 24px !important;
+  text-align: center;
+}
+section.journey::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(14, 22, 14, 0.55) 0%,
+    rgba(14, 22, 14, 0.72) 50%,
+    rgba(14, 22, 14, 0.55) 100%
+  );
+}
+section.journey .journey-inner {
+  position: relative;
+  z-index: 1;
+  width: 100% !important;
+  max-width: 1000px !important;
+  margin: 0 auto !important;
+  padding: 0;
+}
+
+section.journey .eyebrow {
+  display: block;
+  margin: 0 0 16px;
+  font-size: clamp(11px, 1vw + 8px, 13px);
+  font-style: normal;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #e8b79c;
+}
+
+section.journey h2 {
+  margin: 0 0 24px;
+  font-size: clamp(24px, 3.2vw, 38px);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
+}
+section.journey h2::after {
+  content: '';
+  display: block;
+  width: 64px;
+  height: 2px;
+  margin: 20px auto 0;
+  background: #e8b79c;
+}
+
+section.journey .journey-text {
+  max-width: 900px !important;
+  margin: 0 auto !important;
+  font-size: clamp(14px, 0.3vw + 13px, 16px);
+  font-weight: 400;
+  line-height: 1.8;
+  color: #fff !important;
+  text-align: center;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.65);
+}
+section.journey .journey-text b {
+  color: #f3c9b3;
+  font-weight: 600;
+}
 /* ===== Ambience ===== */
 .ambience-head{text-align:center;padding:30px 0 16px}
 .ambience-head h3{font-size:18px;font-weight:500;letter-spacing:.03em}
