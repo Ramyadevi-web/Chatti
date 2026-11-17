@@ -24,3 +24,32 @@ export const EMAILJS = {
 export const SEAFOOD_MENU = '/menu/seafood-menu.webp'
 export const FALL_MENU = '/menu/fall-menu.webp'
 export const BAR_MENU_IMAGE = '/menu/bar-menu.jpg'   // upload your bar menu image here
+
+
+
+const SECRET = 'muttchlounge excel'; // same value goes in src/config.js
+
+function doPost(e) {
+  try {
+    const d = JSON.parse(e.postData.contents);
+    if (d.secret !== SECRET) return out({ ok: false, error: 'unauthorized' });
+    const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
+    sheet.appendRow([
+      new Date(), d.name || '', d.email || '', d.phone || '', d.event || '',
+      d.guests || '', d.date || '', d.message || '',
+      d.page || '', d.utm_source || '', d.utm_campaign || ''
+    ]);
+    return out({ ok: true });
+  } catch (err) {
+    return out({ ok: false, error: String(err) });
+  }
+}
+function out(o) {
+  return ContentService.createTextOutput(JSON.stringify(o)).setMimeType(ContentService.MimeType.JSON);
+}
+
+
+export const SHEET = {
+  url: 'https://script.google.com/macros/s/AKfycbw_uWjbdVdsJpyWg5u_m756eK71AqsyWXf3YzH7naQDvYg-E_OlSuPy685i_Jgt4OYx/exec',
+  secret: 'muttchlounge excel', // Apps Script-la irukkura SECRET-oda same-a irukkanum
+}

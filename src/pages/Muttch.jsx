@@ -1,4 +1,5 @@
 import { memo, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { saveToSheet } from '../lib/saveToSheet'
 import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -121,6 +122,9 @@ function Enquiry() {
     setSending(true)
     try {
       await sendEnquiry(data)
+            await sendEnquiry(data)
+      saveToSheet(data) // records the row in Google Sheets (fire-and-forget)
+      track('generate_lead', { form_name: 'muttch_enquiry' })
       track('generate_lead', { form_name: 'muttch_enquiry' })
       form.reset()
       setToast({ type: 'success', text: 'Thank you! Your enquiry has been sent. Our team will be in touch shortly.' })
