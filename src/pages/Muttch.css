@@ -214,3 +214,55 @@
 
 .mt-privacy{margin-top:12px;font-size:13px;color:var(--muted)}
 .mt-privacy a{color:var(--copper);text-decoration:underline}
+
+/* ===== Awards / chef section ===== */
+.mt-story { padding: clamp(80px, 9vw, 120px) 0 90px; scroll-margin-top: 80px; }
+.mt-story-grid {
+  grid-template-columns: 1fr 1.05fr;
+  gap: clamp(32px, 5vw, 72px);
+  align-items: stretch;
+}
+.mt-story-media {
+  position: relative;
+  aspect-ratio: auto;
+  max-width: none;
+  min-height: 460px;
+  overflow: hidden;
+}
+.mt-story-media img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center top;
+}
+.mt-story-copy { padding: 8px 0 0 clamp(0px, 1.5vw, 20px); }
+.mt-awards-title { margin: 0 0 22px; }
+.mt-story-copy .mt-eyebrow { display: block; margin: 0 0 14px; }
+.mt-chef-name { margin: 0 0 20px; }
+.mt-story-copy .mt-lead { margin: 0 0 28px; }
+.mt-awards { margin: 0 0 32px; }
+
+/* ===== Gallery: infinite slow marquee ===== */
+.mt-gallery { padding: 80px 0 90px; }
+.mt-gallery-marquee { overflow: hidden; width: 100%; }
+.mt-gallery-track {
+  display: flex; gap: 0; width: max-content;
+  padding: 0;
+  animation: mt-marquee 20s linear infinite; /* bigger number = slower */
+  will-change: transform;
+}
+.mt-gallery-marquee:hover .mt-gallery-track,
+.mt-gallery-marquee:active .mt-gallery-track { animation-play-state: paused; }
+.mt-gallery-card { flex: 0 0 auto; margin-right: 10px; }
+@keyframes mt-marquee { from { transform: translateX(0); } to { transform: translateX(-25%); } }
+
+@media (max-width: 800px) {
+  .mt-story-media { aspect-ratio: 4 / 5; min-height: 0; }
+  .mt-story-copy { padding-left: 0; }
+  .mt-gallery-track { width: max-content; overflow: visible; padding: 0; }
+  .mt-gallery-card { flex: 0 0 72vw; height: 340px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mt-gallery-marquee { overflow-x: auto; }
+  .mt-gallery-track { animation: none; }
+  .mt-gallery-card[aria-hidden="true"] { display: none; }
+}

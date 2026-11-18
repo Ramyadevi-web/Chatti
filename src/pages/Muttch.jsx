@@ -19,6 +19,7 @@ const IMG = {
   logo: 'logo-white.webp', hero: 'hero.jpg', intro: 'intro.jpg', chef: 'chef.jpg',
   dining: 'dining.jpg', beverage: 'beverage.webp',
   g1: 'gallery-1.webp', g2: 'gallery-2.webp', g3: 'gallery-3.webp', g4: 'gallery-4.jpg',
+  g5: 'gallery-5.webp',
 }
 const img = (k) => IMG_BASE + IMG[k]
 
@@ -47,6 +48,7 @@ const GALLERY = [
   ['g2', 'Bar and liquor shelves at Muttch Lounge in Midtown Manhattan', 'Crafted pours'],
   ['g3', 'Private dining table at Muttch Lounge in Midtown Manhattan', 'Curated dining experience'],
   ['g4', 'Craft cocktail at Muttch Lounge in Midtown Manhattan', 'Make it memorable'],
+   ['g5', 'Craft cocktail at Muttch Lounge in Midtown Manhattan', 'Make it memorable']
 ]
 
 const Insta = () => (
@@ -221,11 +223,11 @@ export default function Muttch() {
         gsap.utils.toArray('.mt-stat strong[data-count]').forEach((el) =>
           gsap.to(el, { textContent: +el.dataset.count, duration: 1.4, ease: 'power2.out', snap: { textContent: 1 }, scrollTrigger: { trigger: el, start: 'top 85%', once: true } }))
 
-        const track = root.current.querySelector('.mt-gallery-track')
-        if (track && !matchMedia('(max-width: 800px)').matches && track.scrollWidth > window.innerWidth) {
-          gsap.to(track, { x: () => -(track.scrollWidth - window.innerWidth), ease: 'none',
-            scrollTrigger: { trigger: '.mt-gallery', start: 'top top', end: () => '+=' + (track.scrollWidth - window.innerWidth + 600), pin: true, scrub: 1, invalidateOnRefresh: true } })
-        }
+        // const track = root.current.querySelector('.mt-gallery-track')
+        // if (track && !matchMedia('(max-width: 800px)').matches && track.scrollWidth > window.innerWidth) {
+        //   gsap.to(track, { x: () => -(track.scrollWidth - window.innerWidth), ease: 'none',
+        //     scrollTrigger: { trigger: '.mt-gallery', start: 'top top', end: () => '+=' + (track.scrollWidth - window.innerWidth + 600), pin: true, scrub: 1, invalidateOnRefresh: true } })
+        // }
       } else {
         root.current.querySelectorAll('.mt-stat strong[data-count]').forEach((el) => (el.textContent = el.dataset.count))
       }
@@ -386,10 +388,27 @@ export default function Muttch() {
             <div className="mt-eyebrow">Inside Muttch</div>
             <h2 className="mt-display">Inside our private dining room in Midtown Manhattan</h2>
           </div>
+        {/* <div className="mt-gallery-marquee">
           <div className="mt-gallery-track">
             {GALLERY.map(([k, alt, cap]) => (
               <div className="mt-gallery-card" key={k}><img src={img(k)} alt={alt} loading="lazy" decoding="async" /><span>{cap}</span></div>
             ))}
+          </div>
+        </div> */}
+                  <div className="mt-gallery-marquee">
+            <div className="mt-gallery-track">
+              {Array.from({ length: 4 }).flatMap((_, r) =>
+                GALLERY.map(([k, alt, cap]) => {
+                  const dup = r > 0
+                  return (
+                    <div className="mt-gallery-card" key={`${r}-${k}`} aria-hidden={dup || undefined}>
+                      <img src={img(k)} alt={dup ? '' : alt} loading="lazy" decoding="async" />
+                      <span>{cap}</span>
+                    </div>
+                  )
+                })
+              )}
+            </div>
           </div>
         </section>
 
