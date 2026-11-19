@@ -50,6 +50,6 @@ function out(o) {
 
 
 export const SHEET = {
-  url: 'https://script.google.com/macros/s/AKfycbw_uWjbdVdsJpyWg5u_m756eK71AqsyWXf3YzH7naQDvYg-E_OlSuPy685i_Jgt4OYx/exec',
+  url: 'https://script.google.com/macros/s/AKfycbz-KCHksi-xhIyZWiOZfiPGOjSSpM-LX-ofrYI9MN3Usi0WgwXC6-VrfXWBfp7or5J4Tw/exec',
   secret: 'muttchlounge excel', // Apps Script-la irukkura SECRET-oda same-a irukkanum
 }
